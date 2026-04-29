@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>John | Student · Creator · Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0a0a0a;
+    --white:   #f5f0e8;
+    --red:     #e63946;
+    --gold:    #f4a261;
+    --dim:     #1c1c1c;
+    --muted:   #555;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── noise grain overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: .35;
+  }
+
+  /* ── background accent blob ── */
+  .blob {
+    position: fixed;
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(230,57,70,.18) 0%, transparent 70%);
+    top: -160px; right: -180px;
+    pointer-events: none; z-index: 0;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: .7; }
+    50%      { transform: scale(1.08); opacity: 1; }
+  }
+
+  /* ── wrapper ── */
+  .page {
+    position: relative; z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0;
+  }
+
+  /* ── avatar ── */
+  .avatar-ring {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+    padding: 3px;
+    margin-bottom: 18px;
+    animation: fadeDown .6s ease both;
+  }
+  .avatar-ring img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--dim);
+    display: block;
+  }
+  .avatar-placeholder {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; color: white; letter-spacing: 1px;
+  }
+
+  /* ── name ── */
+  .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 10vw, 58px);
+    letter-spacing: 3px;
+    line-height: 1;
+    text-align: center;
+    animation: fadeDown .6s .1s ease both;
+  }
+  .name span { color: var(--red); }
+
+  /* ── tagline ── */
+  .tagline {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 6px;
+    text-align: center;
+    animation: fadeDown .6s .2s ease both;
+  }
+
+  /* ── bio ── */
+  .bio {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(245,240,232,.6);
+    text-align: center;
+    margin-top: 14px;
+    max-width: 320px;
+    animation: fadeDown .6s .3s ease both;
+  }
+
+  /* ── divider ── */
+  .divider {
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    margin: 24px 0;
+    animation: fadeDown .6s .35s ease both;
+  }
+
+  /* ── links ── */
+  .links {
+    width: 100%;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .link-btn {
+    display: flex; align-items: center;
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+    cursor: pointer;
+  }
+  .link-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.04), transparent);
+    transform: translateX(-100%);
+    transition: transform .4s ease;
+  }
+  .link-btn:hover::before { transform: translateX(100%); }
+  .link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.4);
+  }
+  .link-btn:active { transform: translateY(0); }
+
+  /* variants */
+  .btn-primary {
+    background: var(--red);
+    border: none;
+    animation: fadeUp .5s .4s ease both;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(245,240,232,.15);
+    animation: fadeUp .5s calc(.4s + .08s) ease both;
+  }
+  .btn-secondary:hover { border-color: var(--gold); }
+  .btn-gold {
+    background: var(--gold);
+    border: none;
+    animation: fadeUp .5s calc(.4s + .16s) ease both;
+  }
+  .btn-dark {
+    background: var(--dim);
+    border: 1px solid rgba(245,240,232,.08);
+    animation: fadeUp .5s calc(.4s + .24s) ease both;
+  }
+
+  .btn-icon {
+    font-size: 20px;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+  .btn-text { flex: 1; }
+  .btn-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: inherit;
+  }
+  .btn-primary .btn-label,
+  .btn-gold .btn-label { color: #fff; }
+  .btn-gold .btn-label { color: var(--black); }
+  .btn-sub {
+    display: block;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: .5px;
+    margin-top: 2px;
+    opacity: .7;
+    color: inherit;
+  }
+  .btn-primary .btn-sub { color: rgba(255,255,255,.8); }
+  .btn-gold .btn-sub { color: rgba(10,10,10,.7); }
+  .btn-arrow {
+    font-size: 16px;
+    opacity: .5;
+    transition: opacity .2s, transform .2s;
+    color: inherit;
+  }
+  .link-btn:hover .btn-arrow { opacity: 1; transform: translateX(3px); }
+  .btn-primary .btn-arrow,
+  .btn-gold .btn-arrow { color: white; }
+  .btn-gold .btn-arrow { color: var(--black); }
+
+  /* ── section label ── */
+  .section-label {
+    width: 100%;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    margin-top: 12px;
+    animation: fadeUp .5s .38s ease both;
+  }
+
+  /* ── stats bar ── */
+  .stats {
+    display: flex; gap: 24px;
+    margin-top: 8px;
+    animation: fadeDown .6s .25s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 1px;
+    color: var(--white);
+  }
+  .stat-lbl {
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── footer ── */
+  .footer {
+    margin-top: 40px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    animation: fadeUp .5s .7s ease both;
+  }
+  .footer span { color: var(--red); }
+
+  /* ── animations ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FREE badge ── */
+  .badge {
+    background: var(--gold);
+    color: var(--black);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<div class="blob"></div>
+
+<div class="page">
+
+  <!-- Avatar -->
+  <div class="avatar-ring">
+    <div class="avatar-placeholder">JF</div>
+  </div>
+
+  <!-- Name -->
+  <h1 class="name">JOHN <span>FQ</span></h1>
+  <p class="tagline">Student · Creator · Builder</p>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">2.4K</div>
+      <div class="stat-lbl">Followers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1ST YR</div>
+      <div class="stat-lbl">Student</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">30 DAY</div>
+      <div class="stat-lbl">System</div>
+    </div>
+  </div>
+
+  <!-- Bio -->
+  <p class="bio">Building my anime physique & online business in real time. Sharing everything that actually works.</p>
+
+  <div class="divider"></div>
+
+  <!-- Links -->
+  <div class="links">
+
+    <p class="section-label">🎁 Free Stuff</p>
+
+    <a href="#" class="link-btn btn-primary">
+      <span class="btn-icon">📚</span>
+      <span class="btn-text">
+        <span class="btn-label">The Optimized Student System <span class="badge">FREE</span></span>
+        <span class="btn-sub">30-day study + body transformation blueprint</span>
+      </span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <p class="section-label">🔥 My Content</p>
+
+    <a href="https://www.tiktok.com/@fqmedia4" target="_blank" class="link-btn btn-secondary">
+      <span class="btn-icon">🎵</span>
+      <span class="btn-text">
+        <span class="btn-label">Follow on TikTok</span>
+        <span class="btn-sub">@fqmedia4 — business, fitness & the journey</span>
+      </span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <p class="section-label">💼 Work With Me</p>
+
+    <a href="#" class="link-btn btn-gold">
+      <span class="btn-icon">🏋️</span>
+      <span class="btn-text">
+        <span class="btn-label" style="color:#0a0a0a">Social Media for Gyms & Health Brands</span>
+        <span class="btn-sub" style="color:rgba(10,10,10,.6)">Content strategy · Growth · Results</span>
+      </span>
+      <span class="btn-arrow" style="color:#0a0a0a">→</span>
+    </a>
+
+    <a href="#" class="link-btn btn-dark">
+      <span class="btn-icon">💬</span>
+      <span class="btn-text">
+        <span class="btn-label">Join the WhatsApp Community</span>
+        <span class="btn-sub">Students building better habits together</span>
+      </span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+  </div>
+
+  <p class="footer">Built by <span>John FQ</span> · JKUAT 2025</p>
+
+</div>
+</body>
+</html>
