@@ -96,19 +96,44 @@
     <h1>Get Your Free <span>Anime Nutrition Cheat Sheet</span></h1>
     <p class="sub">Tell me your dream physique and your IG handle, and I'll send you straight through.</p>
 
-    <form action="https://formspree.io/f/xgogwogv" method="POST">
+    <form id="pdfForm">
       <label>Your dream anime physique</label>
       <input type="text" name="dream_physique" placeholder="e.g. Gojo Satoru, Baki Hanma..." required>
 
       <label>Your Instagram handle</label>
       <input type="text" name="ig_handle" placeholder="@yourhandle" required>
 
-      <input type="hidden" name="_next" value="https://drive.google.com/file/d/17VdLkc6cjZDUJbSLPX1G7xX-T5jKXCQ0/view?usp=sharing">
       <input type="hidden" name="_subject" value="New Coach John PDF signup">
 
-      <button type="submit">Unlock My Cheat Sheet</button>
+      <button type="submit" id="submitBtn">Unlock My Cheat Sheet</button>
     </form>
     <div class="foot">No spam. Just gains.</div>
   </div>
+
+  <script>
+    const PDF_LINK = "https://drive.google.com/file/d/17VdLkc6cjZDUJbSLPX1G7xX-T5jKXCQ0/view?usp=sharing";
+    const form = document.getElementById('pdfForm');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = "Unlocking...";
+
+      const formData = new FormData(form);
+
+      try {
+        await fetch('https://formspree.io/f/xgogwogv', {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+      } catch (err) {
+        // even if the network hiccups, still let them through
+      }
+
+      window.location.href = PDF_LINK;
+    });
+  </script>
 </body>
 </html>
