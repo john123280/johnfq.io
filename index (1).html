@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coach John | Anime Nutrition Cheat Sheet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    max-width: 440px;
+    width: 100%;
+    background: #131313;
+    border: 1px solid #D4AF37;
+    border-radius: 14px;
+    padding: 36px 28px;
+    box-shadow: 0 0 40px rgba(212,175,55,0.08);
+  }
+  .brand {
+    text-align: center;
+    color: #D4AF37;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  h1 span { color: #D4AF37; }
+  .sub {
+    text-align: center;
+    color: #b5b5b5;
+    font-size: 14px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: #D4AF37;
+    margin-bottom: 6px;
+    margin-top: 18px;
+    letter-spacing: 0.5px;
+  }
+  input {
+    width: 100%;
+    padding: 13px 14px;
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+  }
+  input:focus { border-color: #D4AF37; }
+  input::placeholder { color: #666; }
+  button {
+    width: 100%;
+    margin-top: 26px;
+    padding: 15px;
+    background: #D4AF37;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  button:hover { background: #c4a02f; }
+  .foot {
+    text-align: center;
+    color: #555;
+    font-size: 11px;
+    margin-top: 18px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">Coach John</div>
+    <h1>Get Your Free <span>Anime Nutrition Cheat Sheet</span></h1>
+    <p class="sub">Tell me your dream physique and your IG handle, and I'll send you straight through.</p>
+
+    <form action="https://formspree.io/f/xgogwogv" method="POST">
+      <label>Your dream anime physique</label>
+      <input type="text" name="dream_physique" placeholder="e.g. Gojo Satoru, Baki Hanma..." required>
+
+      <label>Your Instagram handle</label>
+      <input type="text" name="ig_handle" placeholder="@yourhandle" required>
+
+      <input type="hidden" name="_next" value="https://drive.google.com/file/d/17VdLkc6cjZDUJbSLPX1G7xX-T5jKXCQ0/view?usp=sharing">
+      <input type="hidden" name="_subject" value="New Coach John PDF signup">
+
+      <button type="submit">Unlock My Cheat Sheet</button>
+    </form>
+    <div class="foot">No spam. Just gains.</div>
+  </div>
+</body>
+</html>
